@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+
+@using Microsoft.Web.Mvc
+@using CalculatorApp.Models
+@using CalculatorApp.Controllers
+@model Operation
+
+<h2>CALCULATOR MVC PROJECT</h2> <br />
+@* Html.BeginForm("Index", "Home") *@
+<div>
+    @using (Html.BeginForm<HomeController>(x => x.Index(), FormMethod.Post))
+    {
+        <p>Please Input a Value:</p>
+        @Html.TextBoxFor(m => m.InputA, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.InputA, null, new { @class = "label-danger" })
+        <br />
+        <p>Please Input a Value:</p>
+        @Html.TextBoxFor(m => m.InputB, new { @class = "form-control" })
+        <br />
+        <p>Please Select a Function: [rad/s]</p>
+        @Html.DropDownListFor(m => m.SelectedFunction,
+                       new SelectList(Enum.GetValues(typeof(Function))),
+                       null,
+                       new { @class = "form-control" }
+                   )
+        <br />
+
+        <input type="submit" value="CALCULATE"/>
+    }
+    <br />
+
+    <br />
+    <h3>Answer </h3>
+    @Html.DisplayTextFor(m => m.Answer)
+</div>
